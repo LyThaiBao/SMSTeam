@@ -17,7 +17,7 @@ export default function LoginForm() {
   });
   function onSubmit(data: LoginType) {}
   return (
-    <div className="border border-1 w-[90%] my-5 mx-auto px-4 rounded-2xl max-w-[80%] sm:max-w-[60%] md:max-w-[50%] lg:max-w-[35%]">
+    <div className="border border-1 w-[90%] my-5 mx-auto px-4 rounded-2xl max-w-[80%] sm:max-w-[60%] md:max-w-[50%] lg:max-w-[35%] bg-gradient-to-r bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700  ">
       <div className="flex flex-col items-center py-2 my-4">
         <Image
           src={"/imgs/stu.png"}
@@ -30,7 +30,7 @@ export default function LoginForm() {
       <form
         onSubmit={handleSubmit(onSubmit)}
         action=""
-        className="py-10"
+        className="py-10 "
         autoComplete="off"
       >
         <div className="flex flex-col justify-center gap-1 mb-8">
