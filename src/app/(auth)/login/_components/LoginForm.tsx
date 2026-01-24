@@ -17,13 +17,13 @@ export default function LoginForm() {
   });
   function onSubmit(data: LoginType) {}
   return (
-    <div className="border border-1 w-[90%] my-5 mx-auto px-4 rounded-2xl max-w-[80%] sm:max-w-[60%] md:max-w-[50%] lg:max-w-[35%] bg-gradient-to-r bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700  ">
+    <div className="border border-1 w-[90%] mx-auto px-4 rounded-2xl max-w-[80%] sm:max-w-[60%] md:max-w-[50%] lg:max-w-[35%] bg-gradient-to-r bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700  ">
       <div className="flex flex-col items-center py-2 my-4">
         <Image
           src={"/imgs/stu.png"}
           alt="student"
-          width={150}
-          height={200}
+          width={100}
+          height={150}
         ></Image>
         <h1 className="text-2xl">Chào mừng bạn quay trở lại</h1>
       </div>
