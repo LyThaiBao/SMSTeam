@@ -10,10 +10,12 @@ export default function TeacherFeature() {
   }, []);
   return (
     <section className="text-black ">
-      <h2 className="text-xl font-bold py-2">Chức Năng Giảng Viên</h2>
+      <h2 className="text-xl font-bold py-2 text-green-500">
+        Chức Năng Giảng Viên
+      </h2>
       <ul className="grid gap-2 max-w-[90%] my-0 mx-auto md:grid-cols-2 lg:grid-cols-3 md:gap-4">
         <li data-aos="fade-up">
-          <div className="border-1 rounded-2xl flex items-center justify-between p-2 hover:scale-105 transition-transform duration-500 ease-out ">
+          <div className="border-2 border-green-800 rounded-2xl flex items-center justify-between p-2 hover:scale-105 transition-transform duration-500 ease-out ">
             <Image
               src={"/imgs/stu.png"}
               width={70}
@@ -24,7 +26,7 @@ export default function TeacherFeature() {
           </div>
         </li>
         <li data-aos="fade-up">
-          <div className="border-1 rounded-2xl flex items-center justify-between p-2 hover:scale-105 transition-transform duration-500 ease-out ">
+          <div className="border-2 border-green-800 rounded-2xl flex items-center justify-between p-2 hover:scale-105 transition-transform duration-500 ease-out ">
             <Image
               src={"/imgs/stu.png"}
               width={70}
@@ -35,7 +37,7 @@ export default function TeacherFeature() {
           </div>
         </li>
         <li data-aos="fade-up">
-          <div className="border-1 rounded-2xl flex items-center justify-between p-2 hover:scale-105 transition-transform duration-500 ease-out ">
+          <div className="border-2 border-green-800 rounded-2xl flex items-center justify-between p-2 hover:scale-105 transition-transform duration-500 ease-out ">
             <Image
               src={"/imgs/stu.png"}
               width={70}

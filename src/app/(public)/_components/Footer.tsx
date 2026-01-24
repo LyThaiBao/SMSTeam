@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
-    <footer className="text-black grid gap-3 my-4 py-3 px-1 bg-blue-300 md:grid-cols-2 lg:grid-cols-3">
-      <ul className="first-line:text-2xl first-line:font-medium">
+    <footer className="text-black grid gap-3 my-4 py-3 px-1 bg-blue-300  md:grid-cols-2 lg:grid-cols-3">
+      <ul className="first-line:text-2xl first-line:font-medium first-line:text-white first-line:font-extrabold">
         <li>Thông Tin Liên Hệ</li>
         <li>
           <i className="fa-solid fa-location-dot"></i>
@@ -17,7 +17,7 @@ export default function Footer() {
           <i className="fa-solid fa-reply"></i>abcd@gmail.com
         </li>
       </ul>
-      <ul className="first-line:text-2xl first-line:font-medium">
+      <ul className="first-line:text-2xl first-line:font-medium first-line:text-white ">
         <li>Dịch Vụ Tiện Ích</li>
         <li>
           <i className="fa-solid fa-at"></i> Thư điện tử
@@ -31,7 +31,7 @@ export default function Footer() {
           <i className="fa-regular fa-comment"></i>Trợ giúp
         </li>
       </ul>
-      <ul className="first-line:text-2xl first-line:font-medium">
+      <ul className="first-line:text-2xl first-line:font-medium first-line:text-white ">
         <li>Công Khai</li>
         <li>
           <i className="fa-solid fa-person-walking"></i> Tuyển dụng
