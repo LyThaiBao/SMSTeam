@@ -22,7 +22,7 @@
 body {
   background: white;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Be VietName Pro", sans-serif;
 }
 .fade-up {
   transform: translateY(40px);

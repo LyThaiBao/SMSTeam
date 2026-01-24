@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="text-black grid gap-3 my-4 py-3 px-1 bg-blue-300">
+    <footer className="text-black grid gap-3 my-4 py-3 px-1 bg-blue-300 md:grid-cols-2 lg:grid-cols-3">
       <ul className="first-line:text-2xl first-line:font-medium">
         <li>Thông Tin Liên Hệ</li>
         <li>
