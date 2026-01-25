@@ -4,7 +4,7 @@ import Main from "./_components/Main";
 
 export default function LandingPage() {
   return (
-    <div className="bg-blue-100 px-1 pb-2 max-w-[1280px] my-0 mx-auto md:px-4">
+    <div className="bg-white px-1 pb-2 max-w-[1280px] my-0 mx-auto md:px-4">
       <Header />
       <Main />
       <Footer />
