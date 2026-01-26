@@ -3,19 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 interface MenuType {
-  isClose: boolean;
+  onClose: () => void;
 }
-export default function MenuAdmin() {
-  const [isClose, setClose] = useState<boolean>(true);
+export default function MenuAdmin({ onClose }: MenuType) {
   return (
     <>
-      <section
-        className={`bg-blue-700 flex flex-col  fixed left-0 top-0 bottom-0 min-w-[70%] md:min-w-[40%] lg:min-w-[20%] flex-wrap gap-15 p-3 ${isClose ? "translate-x-[-100%]" : ""} md:translate-x-0`}
-      >
-        <figure className="flex justify-between items-center">
+      <section className={`bg-blue-700 flex flex-col h-full gap-5 px-2 `}>
+        <figure className="flex justify-between items-center border-b-1 pb-3">
           <Image src={"/imgs/stu.png"} alt="logo" width={70} height={70} />
           <button
-            onClick={() => setClose(true)}
+            onClick={onClose}
             className="text-2xl cursor-pointer hover:text-red-400 md:hidden"
           >
             <img src="/imgs/sidebar.svg" alt="" width={30} height={30} />
@@ -33,7 +30,7 @@ export default function MenuAdmin() {
           <li>
             <Link
               className="flex gap-2 items-center hover:text-amber-300"
-              href={"teachers"}
+              href={"dashboard/teachers"}
             >
               <i className="fa-solid fa-chalkboard-user"></i>Teachers
             </Link>
@@ -41,7 +38,7 @@ export default function MenuAdmin() {
           <li>
             <Link
               className="flex gap-2 items-center hover:text-amber-300"
-              href={"students"}
+              href={"dashboard/students"}
             >
               <i className="fa-solid fa-graduation-cap"></i>Students/classes
             </Link>
@@ -49,19 +46,13 @@ export default function MenuAdmin() {
           <li>
             <Link
               className="flex gap-2 items-center hover:text-amber-300"
-              href={"settings"}
+              href={"dashboard/settings"}
             >
               <i className="fa-solid fa-gear"></i>Settings and profile
             </Link>
           </li>
         </ul>
       </section>
-      <button
-        onClick={() => setClose(false)}
-        className="text-black md:hidden text-2xl cursor-pointer text-blue-400 hover:text-blue-600"
-      >
-        <i className="fa-solid fa-list"></i>
-      </button>
     </>
   );
 }
