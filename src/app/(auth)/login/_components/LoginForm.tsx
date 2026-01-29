@@ -1,8 +1,11 @@
 "use client";
 
+import { login } from "@/services/login";
 import { LoginSchemas, LoginType } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function LoginForm() {
@@ -15,7 +18,19 @@ export default function LoginForm() {
     resolver: zodResolver(LoginSchemas),
     defaultValues: { username: "", password: "" },
   });
-  function onSubmit(data: LoginType) {}
+  const router = useRouter();
+  const [error, setError] = useState<boolean>(false);
+  async function onSubmit(data: LoginType) {
+    try {
+      const response = await login(data);
+      router.push("dashboard");
+    } catch (err) {
+      setError(true);
+    }
+  }
+  if (error) {
+    return <div>Some Thing Went Wrong</div>;
+  }
   return (
     <div className="text-white border border-1 w-[90%]  absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] px-4 rounded-2xl max-w-[80%] sm:max-w-[60%] md:max-w-[50%] lg:max-w-[35%] bg-gradient-to-r bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700  ">
       <div className="flex flex-col items-center py-2 my-4">

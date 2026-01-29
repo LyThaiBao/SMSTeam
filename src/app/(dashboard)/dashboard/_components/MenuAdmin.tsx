@@ -22,7 +22,7 @@ export default function MenuAdmin({ onClose }: MenuType) {
           <li>
             <Link
               className="flex gap-2 items-center hover:text-amber-300"
-              href={"."}
+              href={""}
             >
               <i className="fa-regular fa-house"></i>Dashboard
             </Link>
@@ -30,7 +30,7 @@ export default function MenuAdmin({ onClose }: MenuType) {
           <li>
             <Link
               className="flex gap-2 items-center hover:text-amber-300"
-              href={"dashboard/teachers"}
+              href={"/dashboard/teachers"}
             >
               <i className="fa-solid fa-chalkboard-user"></i>Teachers
             </Link>
@@ -38,7 +38,7 @@ export default function MenuAdmin({ onClose }: MenuType) {
           <li>
             <Link
               className="flex gap-2 items-center hover:text-amber-300"
-              href={"dashboard/students"}
+              href={"/dashboard/students"}
             >
               <i className="fa-solid fa-graduation-cap"></i>Students/classes
             </Link>
@@ -46,7 +46,7 @@ export default function MenuAdmin({ onClose }: MenuType) {
           <li>
             <Link
               className="flex gap-2 items-center hover:text-amber-300"
-              href={"dashboard/settings"}
+              href={"/dashboard/settings"}
             >
               <i className="fa-solid fa-gear"></i>Settings and profile
             </Link>
