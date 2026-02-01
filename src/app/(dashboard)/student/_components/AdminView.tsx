@@ -1,5 +1,3 @@
-import MenuAdmin from "../../admins/_components/MenuAdmin";
-
 export default function AdminView() {
   return (
     <div className="text-red-800 relative left-0 mt-10 px-4">
