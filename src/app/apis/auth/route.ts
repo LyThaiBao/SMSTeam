@@ -20,7 +20,7 @@ export async function POST(request: Request) {
   //   }
 
   return NextResponse.json(
-    { message: "Login Success", role: "admin" },
+    { message: "Login Success", role: "admin", username: "Ly Thai Bao" },
     { status: 200 },
   );
 }

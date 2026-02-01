@@ -20,10 +20,12 @@ export default function HeaderAdmin() {
   // if (errors) {
   //   return <div>Logout Faild</div>;
   // }
+  const username = localStorage.getItem("username");
   return (
     <div className="flex items-center">
+      <div className="mr-4 text-blue-500">Chào, {username}</div>
       <span className="mr-4 cursor-pointer text-xl">
-        <i className="fa-regular fa-bell"></i>
+        <i className="fa-regular fa-bell text-amber-200"></i>
       </span>
       <button
         onClick={() => onLogout()}

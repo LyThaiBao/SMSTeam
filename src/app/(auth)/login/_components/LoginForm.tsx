@@ -14,6 +14,7 @@ export default function LoginForm() {
     formState: { errors, isSubmitting },
     handleSubmit,
     reset,
+    resetField,
   } = useForm({
     resolver: zodResolver(LoginSchemas),
     defaultValues: { username: "", password: "" },
@@ -23,6 +24,8 @@ export default function LoginForm() {
   async function onSubmit(data: LoginType) {
     try {
       const response = await login(data);
+      const username = response.username;
+      localStorage.setItem("username", username);
       const role = response.role;
       console.log("Login Role>>>", role);
       router.push(`${role}`);
@@ -87,7 +90,10 @@ export default function LoginForm() {
           </button>
           <button
             type="button"
-            onClick={() => reset()}
+            onClick={() => {
+              resetField("username");
+              resetField("password");
+            }}
             className="p-2 bg-red-400 rounded-xl cursor-pointer active:scale-95 active:bg-red-600 "
           >
             Xóa Tất Cả
