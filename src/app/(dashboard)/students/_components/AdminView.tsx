@@ -1,4 +1,4 @@
-import MenuAdmin from "../../_components/MenuAdmin";
+import MenuAdmin from "../../admins/_components/MenuAdmin";
 
 export default function AdminView() {
   return (

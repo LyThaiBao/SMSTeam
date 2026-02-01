@@ -1,4 +1,4 @@
-import { LoginType } from "@/types/auth";
+import { LoginResponse, LoginType } from "@/types/auth";
 
 export async function login({ username, password }: LoginType) {
   const baseUrl = "apis/auth";
@@ -10,6 +10,7 @@ export async function login({ username, password }: LoginType) {
   if (!response.ok) {
     throw new Error(`${response.statusText || "Server Error"}`);
   }
-  const dataSuccess = await response.json();
+  const dataSuccess: LoginResponse = await response.json();
+  console.log(">>> ", dataSuccess);
   return dataSuccess;
 }

@@ -1,7 +1,7 @@
 "use client";
 import { ReactNode, useState } from "react";
 import MenuAdmin from "./_components/MenuAdmin";
-import HeaderAdmin from "./_components/Headers";
+import HeaderAdmin from "../_components/Headers";
 
 export default function DashBoardLayout({ children }: { children: ReactNode }) {
   const [isClose, setClose] = useState<boolean>(true);

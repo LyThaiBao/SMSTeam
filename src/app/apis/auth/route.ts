@@ -19,7 +19,10 @@ export async function POST(request: Request) {
   //     return NextResponse.json({ message: `Server Error` }, { status: 500 });
   //   }
 
-  return NextResponse.json({ message: "Login Success" }, { status: 200 });
+  return NextResponse.json(
+    { message: "Login Success", role: "admins" },
+    { status: 200 },
+  );
 }
 
 export async function DELETE(request: Request) {

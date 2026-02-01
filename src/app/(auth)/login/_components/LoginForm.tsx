@@ -23,7 +23,9 @@ export default function LoginForm() {
   async function onSubmit(data: LoginType) {
     try {
       const response = await login(data);
-      router.push("dashboard");
+      const role = response.role;
+      console.log("Login Role>>>", role);
+      router.push(`${role}`);
     } catch (err) {
       setError(true);
     }
