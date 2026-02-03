@@ -24,7 +24,7 @@ export default function DashBoardLayout({ children }: { children: ReactNode }) {
           </button>
           <HeaderAdmin />
         </header>
-        <main className="">{children}</main>
+        <main className="p-3">{children}</main>
       </div>
     </div>
   );

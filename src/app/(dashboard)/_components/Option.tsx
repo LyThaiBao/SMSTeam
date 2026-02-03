@@ -1,13 +1,15 @@
+"use client";
 export interface OptionType {
   id?: string | number;
   label: string;
+  style?: string;
   action: () => void;
 }
-export default function Option({ label, action }: OptionType) {
+export default function Option({ label, action, style }: OptionType) {
   return (
     <button
       type="button"
-      className="bg-red-400 cursor-pointer"
+      className={`cursor-pointer ${style}`}
       onClick={() => {
         action();
       }}

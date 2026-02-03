@@ -1,6 +1,7 @@
 import { LoginResponse, LoginType } from "@/types/auth";
 
 export async function login({ username, password }: LoginType) {
+  console.log("Vao login");
   const baseUrl = "apis/auth";
 
   const response = await fetch(baseUrl, {

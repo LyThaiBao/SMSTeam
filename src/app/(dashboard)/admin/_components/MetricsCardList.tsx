@@ -5,7 +5,7 @@ export interface MetricsCardListType {
 }
 export default function MetricsCardList({ cards }: MetricsCardListType) {
   return (
-    <div className="p-5 flex gap-5 flex-col flex-wrap items-center lg:flex-row">
+    <div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-5 ">
       {cards.map((c) => (
         <MetricsCard key={c.id} {...c} />
       ))}

@@ -12,7 +12,7 @@ export default function MetricsCard({
   metrics,
 }: MetricsCardType) {
   return (
-    <section className="flex gap-3  bg-blue-200 w-fit p-20  md:p-10 rounded-2xl">
+    <section className="flex gap-3   bg-blue-200  p-20  md:p-10 rounded-2xl">
       <Image
         src={`${imgSource}`}
         height={50}

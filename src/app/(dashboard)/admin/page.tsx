@@ -13,19 +13,19 @@ export default function DashBoard() {
     {
       id: 2,
       imgSource: "/imgs/student.svg",
-      title: "Số Lượng Học Viên",
+      title: "Số Lượng Giảng Viên",
       metrics: 4343,
     },
     {
       id: 3,
       imgSource: "/imgs/student.svg",
-      title: "Số Lượng Học Viên",
+      title: "Số Lượng Ngành",
       metrics: 4343,
     },
     {
       id: 4,
       imgSource: "/imgs/student.svg",
-      title: "Số Lượng Học Viên",
+      title: "Số Lượng Học ",
       metrics: 4343,
     },
     {
@@ -36,7 +36,7 @@ export default function DashBoard() {
     },
   ];
   return (
-    <div className="flex justify-center">
+    <div className=" justify-center">
       <MetricsCardList cards={metricsData} />
     </div>
   );
