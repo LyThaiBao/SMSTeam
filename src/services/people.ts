@@ -4,7 +4,7 @@ type TeachersResponse = {
 };
 export async function getTeachers({ departmentId }: { departmentId?: string }) {
   //   console.log(">>>GET", departmentId);
-  const baseUrl = "http://localhost:3000";
+  const baseUrl = `${process.env.INTERNAL_URL}` || "http://localhost:3000";
   const url = new URL(`${baseUrl}/apis/teacher`);
   if (departmentId) {
     url.searchParams.append("departmentId", departmentId);

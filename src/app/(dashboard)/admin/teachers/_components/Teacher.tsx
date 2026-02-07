@@ -5,7 +5,7 @@ export default function Teacher({ name, major, id }: TeacherType) {
     console.log("Da xoa sinh vien" + id);
   }
   return (
-    <li className="bg-[#5fd1ed] p-2 mb-3 flex flex-col gap-3 md:flex-row justify-between">
+    <li className="bg-[#5fd1ed] p-2 mb-3 flex flex-col gap-3 md:flex-row justify-between items-center">
       <div>{name}</div>
       <div>{major}</div>
       <div className="flex justify-between items-center md:min-w-[40%]">
