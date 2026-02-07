@@ -16,8 +16,8 @@ export async function GET(request: NextRequest) {
   //     return NextResponse.json({ message: "Server Error" }, { status: 500 });
   //   }
   const teachers: TeacherType[] = [
-    { id: 1, name: "Ly Thai Bao", major: "IT" },
-    { id: 2, name: "Nguyen Van An", major: "CS" },
+    { id: 1, name: "Ly Thai Bao", faculty: "CICT" },
+    { id: 2, name: "Nguyen Van An", faculty: "CSE" },
   ];
 
   if (departmentId === undefined || !departmentId) {

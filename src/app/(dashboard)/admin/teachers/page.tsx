@@ -8,7 +8,7 @@ export default async function TeacherPage({
   searchParams: Promise<{ departmentId?: string; name?: string }>;
 }) {
   const department = await searchParams;
-  console.log(">>>", department.departmentId);
+  // console.log(">>>", department.departmentId);
   // console.log(">>>", department.name);
   const teachers = await getTeachers({ departmentId: department.departmentId });
 

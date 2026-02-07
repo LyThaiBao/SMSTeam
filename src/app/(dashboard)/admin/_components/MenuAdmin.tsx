@@ -24,7 +24,7 @@ export default function MenuAdmin({ onClose }: MenuType) {
               className="flex gap-2 items-center hover:text-amber-300"
               href={"/admin"}
             >
-              <i className="fa-regular fa-house"></i>Dashboard
+              <i className="fa-solid fa-house"></i>Tổng Quan
             </Link>
           </li>
           <li>
@@ -32,7 +32,7 @@ export default function MenuAdmin({ onClose }: MenuType) {
               className="flex gap-2 items-center hover:text-amber-300"
               href={"/admin/teachers"}
             >
-              <i className="fa-solid fa-chalkboard-user"></i>Teachers
+              <i className="fa-solid fa-chalkboard-user"></i>Giảng Viên
             </Link>
           </li>
           <li>
@@ -40,8 +40,26 @@ export default function MenuAdmin({ onClose }: MenuType) {
               className="flex gap-2 items-center hover:text-amber-300"
               href={"/admin/students"}
             >
-              <i className="faadmins-solid fa-graduation-cap"></i>
-              Students/classes
+              <i className="fa-solid fa-graduation-cap"></i>
+              Sinh Viên
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="flex gap-2 items-center hover:text-amber-300"
+              href={"/admin/students"}
+            >
+              <i className="fa-solid fa-user-doctor"></i>
+              Lớp Chuyên Ngành
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="flex gap-2 items-center hover:text-amber-300"
+              href={"/admin/students"}
+            >
+              <i className="fa-solid fa-users"></i>
+              Lớp Học Phần
             </Link>
           </li>
           <li>

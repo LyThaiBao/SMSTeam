@@ -9,7 +9,7 @@ export default function DashBoardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex  flex-col  items-start md:flex-row">
       <aside
-        className={`fixed inset-y-0 w-[70%] ${isClose ? "translate-x-[-100%]" : ""} md:translate-0 md:w-[40%] lg:w-[20%] z-10 transition-all`}
+        className={`fixed inset-y-0 w-[70%] ${isClose ? "-translate-x-full" : ""} md:translate-0 md:w-[40%] lg:w-[20%] z-10 transition-all`}
       >
         <MenuAdmin onClose={() => setClose(true)} />
       </aside>

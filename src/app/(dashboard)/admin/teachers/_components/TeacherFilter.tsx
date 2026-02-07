@@ -37,7 +37,7 @@ export default function TeacherFilter() {
       <div className="flex flex-col gap-2">
         <label className="font-semibold text-gray-700">Lọc Theo Khoa</label>
         <select
-          className="border text-black border-gray-300  p-2 rounded-lg outline-none focus:border-blue-500 transition-all"
+          className="border text-black border-gray-300  p-2 rounded-lg outline-none focus:border-blue-500 cursor-pointer transition-all"
           name="departmentId"
           value={searchParam.get("departmentId")?.toString() || ""}
           onChange={(e) => onFilter("departmentId", e.target.value)}
