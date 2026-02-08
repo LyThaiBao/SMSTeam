@@ -15,7 +15,9 @@ export default function HeaderAdmin() {
   async function onLogout() {
     try {
       const response = await logout();
-      router.replace("/");
+      // router.replace("/");
+      window.location.replace("/");
+      router.refresh();
     } catch (err) {
       console.log(err);
       console.log("VO CATCh");
