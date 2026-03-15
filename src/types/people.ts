@@ -22,7 +22,7 @@ export const TeacherDetailSchemas = z.object({
 
 export type TeacherDetailType = z.infer<typeof TeacherDetailSchemas>;
 
-export type TeacherType = { id: string } & Pick<
+export type TeacherType = { id: string | number } & Pick<
   TeacherDetailType,
   "name" | "faculty"
 >;
