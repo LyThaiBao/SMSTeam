@@ -3,6 +3,8 @@
 import { getFaculties } from "@/services/faculty";
 import {
   Faculty,
+  FormTeacherSchemas,
+  FormTeacherType,
   TeacherDetailSchemas,
   TeacherDetailType,
 } from "@/types/people";
@@ -25,15 +27,15 @@ export default function FormAddTeacher({ onModal }: FormAddTeacherProps) {
   }, []);
 
   // ----------------RHF----------------
-  async function addTeacher(data: TeacherDetailType) {
+  async function addTeacher(data: FormTeacherType) {
     console.log(">>>Data Teacher ", data);
   }
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<TeacherDetailType>({
-    resolver: zodResolver(TeacherDetailSchemas),
+  } = useForm<FormTeacherType>({
+    resolver: zodResolver(FormTeacherSchemas),
   });
 
   return (
