@@ -9,7 +9,7 @@ export default function MenuAdmin({ onClose }: MenuType) {
   return (
     <>
       <section className={`bg-blue-700 flex flex-col h-full gap-5 px-2 `}>
-        <figure className="flex justify-between items-center border-b-1 pb-3">
+        <figure className="flex justify-between items-center border-b pb-3">
           <Image src={"/imgs/stu.png"} alt="logo" width={70} height={70} />
           <button
             onClick={onClose}

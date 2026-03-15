@@ -18,7 +18,7 @@ export default function DashBoardLayout({ children }: { children: ReactNode }) {
         <header className="flex bg-gray-300 px-4 py-4  items-center justify-between md:justify-end gap-10">
           <button
             onClick={() => setClose(false)}
-            className="text-black md:hidden text-2xl cursor-pointer text-blue-400 hover:text-blue-600"
+            className=" md:hidden text-2xl cursor-pointer text-blue-400 hover:text-blue-600"
           >
             <i className="fa-solid fa-list"></i>
           </button>
