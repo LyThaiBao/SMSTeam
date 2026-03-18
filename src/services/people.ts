@@ -1,24 +1,42 @@
-import { TeacherDetailType, TeacherType } from "@/types/people";
+import {
+  FormTeacherType,
+  TeacherDetailType,
+  TeacherType,
+} from "@/types/people";
+import { TeacherList } from "@/types/response";
+
 type TeachersResponse = {
   teachers: TeacherType[];
 };
-export async function getTeachers({ departmentId }: { departmentId?: string }) {
-  //   console.log(">>>GET", departmentId);
+export async function getTeachers({
+  departmentId,
+  token,
+}: {
+  departmentId?: string;
+  token?: string;
+}) {
   const baseUrl =
     `${process.env.NEXT_PUBLIC_INTERNAL_URL}` || "http://localhost:3000";
+  // const url = new URL(baseUrl);
   const url = new URL(`${baseUrl}/apis/teacher`);
   if (departmentId) {
     url.searchParams.append("departmentId", departmentId);
   }
+
   const response = await fetch(url, {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Cookie: `accessToken=${token}`,
+    },
   });
+
   if (!response.ok) {
     throw new Error(`${response.statusText || "Server Error"}`);
   }
-  const { teachers } = (await response.json()) as TeachersResponse;
-  return teachers;
+  // const { teachers } = (await response.json()) as TeachersResponse;
+  const teachers: TeacherList = await response.json();
+  return teachers.DATA.listLecturer;
 }
 
 export async function getTeacher(id: string | number) {
@@ -36,11 +54,28 @@ export async function getTeacher(id: string | number) {
   return teacher;
 }
 
+export async function postTeacher(info: FormTeacherType) {
+  const baseUrl =
+    `${process.env.NEXT_PUBLIC_INTERNAL_URL}` || "http://localhost:3000";
+  const response = await fetch(`${baseUrl}/apis/teacher`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(info),
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error(`${response.statusText || "Server Error"}`);
+  }
+  const dataResponse = await response.json();
+}
+
 export async function deleteTeacher(id: string | number) {
   const baseUrl =
     `${process.env.NEXT_PUBLIC_INTERNAL_URL}` || "http://localhost:3000";
   const url = new URL(`${baseUrl}/apis/teacher/${id}`);
-  console.log(url);
+
   const response = await fetch(url, { method: "DELETE" });
   if (!response.ok) {
     throw new Error(`${response.statusText || "Server Error"}`);

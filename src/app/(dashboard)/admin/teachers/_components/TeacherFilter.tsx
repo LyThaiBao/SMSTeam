@@ -15,8 +15,9 @@ export default function TeacherFilter() {
     (async () => {
       try {
         const data = await getDepartments();
-        console.log(data);
-        setDeparts(data); // Đổi tên biến tránh trùng với state
+        console.log(">> Depart ", data.listFaculty);
+        const depart = data.listFaculty;
+        setDeparts(depart); // Đổi tên biến tránh trùng với state
       } catch (error) {
         console.error("Lỗi khi lấy danh sách khoa:", error);
       }

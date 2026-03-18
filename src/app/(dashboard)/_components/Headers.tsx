@@ -14,8 +14,11 @@ export default function HeaderAdmin() {
   }, []);
   async function onLogout() {
     try {
-      const response = await logout();
-      // router.replace("/");
+      // const response = await logout();
+      localStorage.removeItem("email");
+      localStorage.removeItem("username");
+      localStorage.removeItem("token");
+
       window.location.replace("/");
       router.refresh();
     } catch (err) {
@@ -24,9 +27,6 @@ export default function HeaderAdmin() {
       setError(true);
     }
   }
-  // if (errors) {
-  //   return <div>Logout Faild</div>;
-  // }
 
   return (
     <div className="flex items-center">

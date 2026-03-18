@@ -1,6 +1,7 @@
 "use client";
 
 import { getFaculties } from "@/services/faculty";
+import { postTeacher } from "@/services/people";
 import {
   Faculty,
   FormTeacherSchemas,
@@ -11,7 +12,6 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { da } from "zod/locales";
 
 interface FormAddTeacherProps {
   onModal: (value: boolean) => void;
@@ -28,6 +28,7 @@ export default function FormAddTeacher({ onModal }: FormAddTeacherProps) {
 
   // ----------------RHF----------------
   async function addTeacher(data: FormTeacherType) {
+    postTeacher(data);
     console.log(">>>Data Teacher ", data);
   }
   const {
@@ -121,6 +122,16 @@ export default function FormAddTeacher({ onModal }: FormAddTeacherProps) {
             />
 
             <small className="text-red-500">{errors.phone?.message}</small>
+
+            <label htmlFor="">Email</label>
+            <input
+              {...register("email")}
+              type="text"
+              placeholder="Nhập số điện thoại"
+              className="bg-gray-200 outline-0 outline-gray-500 focus:outline-2 w-[75%] lg:w-[50%] p-2 rounded-sm "
+            />
+
+            <small className="text-red-500">{errors.email?.message}</small>
           </div>
         </section>
         <div className=" flex justify-between items-center mt-4">

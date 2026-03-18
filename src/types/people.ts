@@ -17,6 +17,7 @@ export const FormTeacherSchemas = z.object({
     )
     //.optional(),// dung optional thi form no la "" nhung check regex ko valid
     .or(literal("")),
+  email: z.string("Email phai la chuoi").nonempty("Email khong duoc bo trong"),
   gender: GenderSchemas,
 });
 

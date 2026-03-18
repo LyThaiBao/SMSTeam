@@ -1,8 +1,19 @@
+import { getDepartments } from "@/services/department";
 import MetricsCard, { MetricsCardType } from "./_components/MetricsCard";
 import MetricsCardList from "./_components/MetricsCardList";
+import { cookies } from "next/headers";
+import { string } from "zod";
+import { DepartList } from "@/types/response";
 
-export default function DashBoard() {
-  // fetch data here
+export default async function DashBoard() {
+  const cook = await cookies();
+  const token = cook.get("accessToken")?.value || "";
+  console.log(">> token ", token);
+  // // fetch data here
+  const depart = await getDepartments(token);
+  const departQuantity = depart.quantity;
+  // //--------------------
+
   const metricsData: MetricsCardType[] = [
     {
       id: 1,
@@ -31,8 +42,8 @@ export default function DashBoard() {
     {
       id: 5,
       imgSource: "/imgs/student.svg",
-      title: "Số Lượng Học Viên",
-      metrics: 4343,
+      title: "Số Lượng Khoa",
+      metrics: departQuantity,
     },
   ];
   return (
