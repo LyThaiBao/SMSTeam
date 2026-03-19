@@ -1,13 +1,13 @@
 "use client";
 
 import { getDepartments } from "@/services/department";
-import { DepartmentType } from "@/types/depart";
+import { DepartmentTypeDetail } from "@/types/depart";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 
 export default function TeacherFilter() {
   // Khởi tạo mảng rỗng để render ban đầu không bị lỗi map
-  const [departs, setDeparts] = useState<DepartmentType[]>([]);
+  const [departs, setDeparts] = useState<DepartmentTypeDetail[]>([]);
   const searchParam = useSearchParams();
   const currentDapt = searchParam.get("departmentId") || "";
   const router = useRouter();

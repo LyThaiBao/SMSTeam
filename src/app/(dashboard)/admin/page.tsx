@@ -11,6 +11,7 @@ export default async function DashBoard() {
   console.log(">> token ", token);
   // // fetch data here
   const depart = await getDepartments(token);
+  console.log(">> Page DashBoard ", depart);
   const departQuantity = depart.quantity;
   // //--------------------
 

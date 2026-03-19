@@ -20,7 +20,7 @@ export default async function TeacherPage({
     departmentId: department.departmentId,
     token: token,
   });
-  console.log(">>> Page ", teachers);
+  // console.log(">>> Page ", teachers);
 
   return <TeacherClient teachers={teachers} />;
 }

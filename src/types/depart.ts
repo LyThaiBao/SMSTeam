@@ -12,7 +12,9 @@ export const FormDepartSchemas = z.object({
     ),
 });
 
-export type DepartmentType = z.infer<typeof FormDepartSchemas> & {
+export type FormDepartmentType = z.infer<typeof FormDepartSchemas>;
+
+export type DepartmentTypeDetail = FormDepartmentType & {
   id: string | number;
   status: number;
 };

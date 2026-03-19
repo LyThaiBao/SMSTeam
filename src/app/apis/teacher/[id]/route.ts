@@ -19,8 +19,12 @@ export async function GET() {
   const teacher: TeacherDetailType = {
     id: 1,
     name: "Nguyen Van An",
-    faculty: "CICT",
+    faculty: {
+      code: "DI",
+      name: "CICT",
+    },
     gender: "Nam",
+    email: "baoly@gmail.com",
     phone: "0123456789",
   };
   return NextResponse.json(teacher, { status: 200 });

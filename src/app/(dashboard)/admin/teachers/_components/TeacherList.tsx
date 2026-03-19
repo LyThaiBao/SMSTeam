@@ -5,7 +5,7 @@ interface TeacherListType {
   teachers: TeacherType[];
 }
 export default function TeacherList({ teachers }: TeacherListType) {
-  console.info("Teacher >> ", teachers);
+  console.info("Teacher List>> ", teachers[0]);
   if (teachers.length === 0) {
     return <div className="text-red-500">Không Tìm Thấy Giảng Viên</div>;
   }

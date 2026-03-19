@@ -38,6 +38,14 @@ export default function MenuAdmin({ onClose }: MenuType) {
           <li>
             <Link
               className="flex gap-2 items-center hover:text-amber-300"
+              href={"/admin/faculty"}
+            >
+              <i className="fa-solid fa-chalkboard-user"></i>Khoa/Trường
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="flex gap-2 items-center hover:text-amber-300"
               href={"/admin/students"}
             >
               <i className="fa-solid fa-graduation-cap"></i>

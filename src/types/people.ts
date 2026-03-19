@@ -8,7 +8,10 @@ type Gender = z.infer<typeof GenderSchemas>;
 
 export const FormTeacherSchemas = z.object({
   name: z.string("Tên phải là chữ!").nonempty("Tên không thể để trống"),
-  faculty: z.string().min(1, "Vui lòng chọn Khoa/Trường"),
+  faculty: z.object({
+    name: z.string("Ten phai la chu").min(1, "Ten khoa khong duoc trong"),
+    code: z.string("").min(1, "Ma khoa khong duoc trong"),
+  }),
   phone: z
     .string()
     .regex(

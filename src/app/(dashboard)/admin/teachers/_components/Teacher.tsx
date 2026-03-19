@@ -17,7 +17,7 @@ export default function Teacher({ name, faculty, id }: TeacherType) {
   return (
     <li className="bg-[#5fd1ed] p-4 mb-3 flex flex-col gap-3 md:flex-row justify-between items-center rounded-2xl">
       <div className="text-xl font-bold">{name}</div>
-      <div className="text-xl font-bold">{faculty}</div>
+      <div className="text-xl font-bold">{faculty.name}</div>
       <div className="flex justify-between items-center w-full md:max-w-[45%]">
         <button
           onClick={() => onDetail(id)}
