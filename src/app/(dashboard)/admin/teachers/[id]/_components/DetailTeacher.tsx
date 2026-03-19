@@ -45,7 +45,7 @@ export default function DetailTeacher() {
         className="peer mt-10 rounded-[100%] bg-blue-500 mb-5 mx-auto hover:scale-[1.5]   border-2 border-amber-400 transition-all"
       />
       <div className="text-xl font-medium text-center text-[#333] peer-hover:text-red-500 lg:peer-hover:translate-x-[30%] transition-all peer-hover:translate-y-[50%]">
-        {teacher?.faculty}
+        {teacher?.faculty.name}
       </div>
       <div className="text-center text-[#333] lg:peer-hover:translate-x-[-30%] lg:peer-hover:-translate-y-full transition-all peer-hover:mt-4">
         <h3 className="text-2xl font-bold">{teacher?.name}</h3>
