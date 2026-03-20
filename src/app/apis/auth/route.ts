@@ -26,7 +26,7 @@ export async function POST(request: Request) {
   toClient.cookies.set("accessToken", dataResponse.access_token, {
     httpOnly: true,
     sameSite: "lax",
-    secure: false,
+    secure: true,
     path: "/",
   });
   return toClient;
