@@ -14,7 +14,7 @@ export default function HeaderAdmin() {
   }, []);
   async function onLogout() {
     try {
-      // const response = await logout();
+      const response = await logout();
       localStorage.removeItem("email");
       localStorage.removeItem("username");
       localStorage.removeItem("token");
