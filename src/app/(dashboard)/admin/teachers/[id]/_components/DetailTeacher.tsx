@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
+// contt
 export default function DetailTeacher({
   id,
   name,
