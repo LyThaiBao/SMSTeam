@@ -4,7 +4,17 @@ import {
   TeacherType,
 } from "@/types/people";
 import { TeacherList } from "@/types/response";
-import { PostResponse } from "@/types/teacher/response";
+import {
+  BEError,
+  BEGetResponse,
+  BEGetSuccess,
+  BEResponse,
+  BESuccess,
+  DeletResponse,
+  GetSigleResponse,
+  PostResponse,
+  Response,
+} from "@/types/teacher/response";
 
 type TeachersResponse = {
   teachers: TeacherType[];
@@ -41,22 +51,26 @@ export async function getTeachers({
 }
 
 export async function getTeacher(id: string | number, token: string) {
+  console.log(">> IN");
   const baseUrl =
     `${process.env.NEXT_PUBLIC_INTERNAL_URL}` || "http://localhost:3000";
   const url = new URL(`${baseUrl}/apis/teacher/${id}`);
+  console.log(">>URL ", url);
   const response = await fetch(`${url}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
       Cookie: `accessToken=${token}`,
     },
-    body: JSON.stringify(id),
+    // credentials: "include",
   });
+  const result: GetSigleResponse = await response.json();
   if (!response.ok) {
-    throw new Error(`${response.statusText || "Server Error"}`);
+    throw new Error(`${result.message || "Server Error"}`);
   }
-  const teacher: TeacherDetailType = await response.json();
-  return teacher;
+  // const teacher: TeacherType = data.data as ;
+  console.log(">>>> TT: ", result.data);
+  return result.data;
 }
 
 export async function postTeacher(info: FormTeacherType) {
@@ -75,7 +89,7 @@ export async function postTeacher(info: FormTeacherType) {
     console.log(">>>>>>>>>>>>>>>>", result);
     throw new Error(result.message);
   }
-  return result;
+  return result.data;
 }
 
 export async function deleteTeacher(id: string | number) {
@@ -83,10 +97,15 @@ export async function deleteTeacher(id: string | number) {
     `${process.env.NEXT_PUBLIC_INTERNAL_URL}` || "http://localhost:3000";
   const url = new URL(`${baseUrl}/apis/teacher/${id}`);
 
-  const response = await fetch(url, { method: "DELETE" });
+  const response = await fetch(url, {
+    method: "DELETE",
+    credentials: "include",
+  });
+  const result: DeletResponse = await response.json();
+  console.log(">>> RESULT ", result);
   if (!response.ok) {
-    throw new Error(`${response.statusText || "Server Error"}`);
+    throw new Error(result.message);
   }
-  const notifi = await response.json();
-  return notifi;
+
+  return result.data;
 }

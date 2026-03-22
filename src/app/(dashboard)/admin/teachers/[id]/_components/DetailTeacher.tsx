@@ -1,40 +1,18 @@
 "use client";
 
 import { getTeacher } from "@/services/people";
-import { TeacherDetailType } from "@/types/people";
+import { TeacherDetailType, TeacherType } from "@/types/people";
 import { error } from "console";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
-export default function DetailTeacher() {
-  const params = useParams();
-  const id = params?.id;
-  console.info("params >> ", params?.id);
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [isError, setError] = useState<boolean>(false);
-
-  const [teacher, setTeacher] = useState<TeacherDetailType | null>();
-  useEffect(() => {
-    setLoading(true);
-    (async () => {
-      try {
-        const teacher = await getTeacher(id as string);
-        setTeacher(teacher);
-      } catch (e) {
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [id]);
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>ERROR</div>;
-  }
+export default function DetailTeacher({
+  id,
+  name,
+  faculty,
+  phone,
+}: TeacherType) {
   return (
     <section className="bg-white border-2 border-grey-300 p-2 overflow-hidden rounded-2xl">
       <Image
@@ -45,10 +23,10 @@ export default function DetailTeacher() {
         className="peer mt-10 rounded-[100%] bg-blue-500 mb-5 mx-auto hover:scale-[1.5]   border-2 border-amber-400 transition-all"
       />
       <div className="text-xl font-medium text-center text-[#333] peer-hover:text-red-500 lg:peer-hover:translate-x-[30%] transition-all peer-hover:translate-y-[50%]">
-        {teacher?.faculty.name}
+        {faculty.name}
       </div>
       <div className="text-center text-[#333] lg:peer-hover:translate-x-[-30%] lg:peer-hover:-translate-y-full transition-all peer-hover:mt-4">
-        <h3 className="text-2xl font-bold">{teacher?.name}</h3>
+        <h3 className="text-2xl font-bold">{name}</h3>
       </div>
 
       <p className="text-center text-green-500">
@@ -56,7 +34,7 @@ export default function DetailTeacher() {
         tình, nhiệt huyết,năng động
       </p>
       <div className="text-center py-3 px-5 bg-blue-400 w-fit mx-auto mt-5 rounded-xl font-bold">
-        Liên Hệ: {teacher?.phone}
+        Liên Hệ: {phone ? phone : "Không có thông tin"}
       </div>
       <ul className="flex gap-4 justify-center mt-5">
         <li className="text-2xl">

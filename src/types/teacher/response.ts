@@ -1,4 +1,5 @@
-import { TeacherDetailType } from "../people";
+import { keyof } from "zod";
+import { TeacherDetailType, TeacherType } from "../people";
 
 //-------------BE POST---------------
 export interface BESuccess {
@@ -13,8 +14,22 @@ export interface BEError {
 
 export type BEResponse = BESuccess | BEError;
 
-//---------SERVICE POST---------------
-export interface PostResponse {
-  message: string;
-  data?: Pick<BESuccess, "lecturer">;
+//-----------BE GET--------------------
+export interface BEGetSuccess {
+  Success: boolean;
+  DATA: TeacherType;
 }
+
+export type BEGetResponse = BEGetSuccess | BEError;
+//---------SERVICE POST---------------
+export type Response<T> = {
+  message: string;
+  data?: T;
+};
+// -------------DELETE---------------
+export interface BEDeletSuccess {}
+
+//------------------------RESPONSE-------------------
+export type PostResponse = Response<BESuccess>;
+export type GetSigleResponse = Response<BEGetSuccess>;
+export type DeletResponse = Response<BEError>;

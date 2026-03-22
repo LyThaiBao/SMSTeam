@@ -8,7 +8,7 @@ import { DepartList } from "@/types/response";
 export default async function DashBoard() {
   const cook = await cookies();
   const token = cook.get("accessToken")?.value || "";
-  console.log(">> token ", token);
+  // console.log(">> token ", token);
   // // fetch data here
   const depart = await getDepartments(token);
   // console.log(">> Page DashBoard ", depart);

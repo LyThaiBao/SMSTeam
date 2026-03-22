@@ -5,6 +5,7 @@ import { postTeacher } from "@/services/people";
 import { DepartmentTypeDetail } from "@/types/depart";
 import { FormTeacherSchemas, FormTeacherType } from "@/types/people";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast, Toaster } from "sonner";
@@ -13,6 +14,7 @@ interface FormAddTeacherProps {
   onModal: (value: boolean) => void;
 }
 export default function FormAddTeacher({ onModal }: FormAddTeacherProps) {
+  const router = useRouter();
   const [faculties, setFaculties] = useState<DepartmentTypeDetail[]>([]);
   useEffect(() => {
     (async () => {
@@ -25,12 +27,26 @@ export default function FormAddTeacher({ onModal }: FormAddTeacherProps) {
 
   // ----------------RHF----------------
   async function addTeacher(data: FormTeacherType) {
-    const myPromise = postTeacher(data);
+    const myPromise = postTeacher(data); // GỌI 1 LẦN (Máy bắt đầu làm việc)
     toast.promise(myPromise, {
+      // Đưa cái "phiếu hẹn" cho Toast theo dõi
       loading: "Đang Lưu Giảng Viên",
       success: "Tạo Thành Công",
       error: (err) => <b>${err.message}</b>,
     });
+
+    try {
+      // 3. ĐỢI cho đến khi Promise hoàn thành thực sự
+      await myPromise; // Đợi cái "phiếu hẹn" đó hoàn thành
+
+      // 4. CHỈ KHI THÀNH CÔNG MỚI CHẠY TIẾP
+      onModal(false); // Đóng modal
+      router.refresh(); // Refresh dữ liệu
+    } catch (err) {
+      // Nếu lỗi, toast.promise đã hiện thông báo lỗi rồi
+      // Ở đây ta không đóng modal để user xem lại form
+      console.error("Lỗi addTeacher:", err);
+    }
   }
   const {
     register,

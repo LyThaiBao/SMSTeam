@@ -11,7 +11,7 @@ export default async function TeacherPage({
   // --------------get token-----------------
   const cook = await cookies();
   const token = cook.get("accessToken")?.value;
-  console.log(">>> token ", token);
+  // console.log(">>> token ", token);
   //---------------------------------------
   const department = await searchParams;
   // console.log(">>>", department.departmentId);

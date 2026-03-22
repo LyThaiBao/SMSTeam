@@ -2,6 +2,7 @@
 import { deleteTeacher } from "@/services/people";
 import { TeacherType } from "@/types/people";
 import { usePathname, useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Teacher({ name, faculty, id }: TeacherType) {
   console.log(">> Username :", name);
@@ -9,8 +10,21 @@ export default function Teacher({ name, faculty, id }: TeacherType) {
   const currentPath = usePathname();
   console.info("Current Path>> " + currentPath);
   async function onDelete(id: string | number) {
-    const response = await deleteTeacher(id);
+    const response = deleteTeacher(id);
+    toast.promise(response, {
+      loading: "Đang Xóa...",
+      success: "Xóa Thành Công",
+      error: (err) => <b>{err.message}</b>,
+    });
+    try {
+      await response;
+      router.refresh();
+    } catch (err) {
+      console.log("Error");
+    }
+
     console.log("Da xoa sinh vien" + id);
+    router.refresh();
   }
   function onDetail(id: string | number) {
     router.push(`${currentPath}/${id}`);
