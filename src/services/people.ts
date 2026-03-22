@@ -4,6 +4,7 @@ import {
   TeacherType,
 } from "@/types/people";
 import { TeacherList } from "@/types/response";
+import { PostResponse } from "@/types/teacher/response";
 
 type TeachersResponse = {
   teachers: TeacherType[];
@@ -39,13 +40,17 @@ export async function getTeachers({
   return teachers.DATA.listLecturer;
 }
 
-export async function getTeacher(id: string | number) {
+export async function getTeacher(id: string | number, token: string) {
   const baseUrl =
     `${process.env.NEXT_PUBLIC_INTERNAL_URL}` || "http://localhost:3000";
   const url = new URL(`${baseUrl}/apis/teacher/${id}`);
   const response = await fetch(`${url}`, {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Cookie: `accessToken=${token}`,
+    },
+    body: JSON.stringify(id),
   });
   if (!response.ok) {
     throw new Error(`${response.statusText || "Server Error"}`);
@@ -65,10 +70,12 @@ export async function postTeacher(info: FormTeacherType) {
     body: JSON.stringify(info),
     credentials: "include",
   });
+  const result: PostResponse = await response.json();
   if (!response.ok) {
-    throw new Error(`${response.statusText || "Server Error"}`);
+    console.log(">>>>>>>>>>>>>>>>", result);
+    throw new Error(result.message);
   }
-  const dataResponse = await response.json();
+  return result;
 }
 
 export async function deleteTeacher(id: string | number) {

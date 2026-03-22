@@ -10,6 +10,7 @@ interface TeacherClientType {
   teachers: TeacherType[];
 }
 export default function TeacherClient({ teachers }: TeacherClientType) {
+  console.log(">>> teachers: ", teachers);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const goToTeachers = (): void => {
     console.log("ADD");

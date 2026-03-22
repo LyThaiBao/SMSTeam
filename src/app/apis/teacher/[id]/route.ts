@@ -1,33 +1,38 @@
 import { TeacherDetailType } from "@/types/people";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const cook = await cookies();
+  const token = cook.get("accessToken")?.value;
+  console.log(">> TOKEN : ", token);
   const beUrl = process.env.BACKEND_URL || "localhost:8080";
-  // try {
-  //   const response = await fetch(`${beUrl}/`, {
-  //     method: "GET",
-  //     headers: { "Content-Type": "application/json" },
-  //   });
-  //   if (!response.ok) {
-  //     return NextResponse.json({ message: `Server Error` }, { status: 500 });
-  //   }
-  //   const successData: TeacherDetailType = await response.json();
-  //   return NextResponse.json(successData, { status: 200 });
-  // } catch (e) {
-  //   return NextResponse.json({ message: `Server Error` }, { status: 500 });
-  // }
-  const teacher: TeacherDetailType = {
-    id: 1,
-    name: "Nguyen Van An",
-    faculty: {
-      code: "DI",
-      name: "CICT",
-    },
-    gender: "Nam",
-    email: "baoly@gmail.com",
-    phone: "0123456789",
-  };
-  return NextResponse.json(teacher, { status: 200 });
+  try {
+    const id = await request.json();
+    const response = await fetch(`${beUrl}/lecturer/${id}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (!response.ok) {
+      return NextResponse.json({ message: `Server Error` }, { status: 500 });
+    }
+    const successData: TeacherDetailType = await response.json();
+    return NextResponse.json(successData, { status: 200 });
+  } catch (e) {
+    return NextResponse.json({ message: `Server Error` }, { status: 500 });
+  }
+  // const teacher: TeacherDetailType = {
+  //   id: 1,
+  //   name: "Nguyen Van An",
+  //   faculty: {
+  //     code: "DI",
+  //     name: "CICT",
+  //   },
+  //   gender: "Nam",
+  //   email: "baoly@gmail.com",
+  //   phone: "0123456789",
+  // };
+  // return NextResponse.json(teacher, { status: 200 });
 }
 
 export async function DELETE(

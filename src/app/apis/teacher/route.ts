@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
-import { TeacherType } from "@/types/people";
 import { TeacherList } from "@/types/response";
+import { BEError, BEResponse, BESuccess } from "@/types/teacher/response";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -21,8 +21,8 @@ export async function GET(request: NextRequest) {
     if (!response.ok) {
       return NextResponse.json({ message: "Server Error" }, { status: 500 });
     }
-    const data = await response.json();
-    return NextResponse.json({ message: "Success", ...data }, { status: 200 });
+    const data: TeacherList = await response.json();
+    return NextResponse.json({ ...data }, { status: 200 });
   } catch (e) {
     return NextResponse.json({ message: "Server Error" }, { status: 500 });
   }
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
   const token = cook.get("accessToken")?.value;
   console.log(">>Token ", token);
   const info = await request.json();
-  console.log(">>> INFO ", info);
+  // console.log(">>> INFO ", info);
   const beUrl = process.env.BACKEND_URL || "localhost:8080";
   try {
     const response = await fetch(`${beUrl}/lecturer`, {
@@ -45,11 +45,18 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify(info),
     });
     console.log("RESPONSE >> ", response);
+    const data: BEResponse = await response.json();
     if (!response.ok) {
-      return NextResponse.json({ message: "Server Error" }, { status: 500 });
+      const error = data as BEError;
+      return NextResponse.json(
+        { message: error.MS },
+        { status: response.status },
+      );
     }
-    const data = await response.json();
-    return NextResponse.json({ message: "Success", ...data }, { status: 200 });
+    return NextResponse.json(
+      { message: "Success", data: (data as BESuccess).lecturer },
+      { status: 200 },
+    );
   } catch (e) {
     return NextResponse.json({ message: "Server Error" }, { status: 500 });
   }

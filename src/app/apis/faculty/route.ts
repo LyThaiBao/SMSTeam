@@ -1,5 +1,5 @@
 import { FormDepartmentType } from "@/types/depart";
-import { Faculty } from "@/types/people";
+import { DepartList } from "@/types/response";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -20,12 +20,10 @@ export async function GET() {
     if (!response.ok) {
       return NextResponse.json({ message: `Server Error` }, { status: 500 });
     }
-    const successData: Faculty[] = await response.json();
+    const successData: DepartList = await response.json();
+    console.log(">>> LOG RESPONSE ", successData);
     // console.log(">>> Route Faculty ", successData);
-    return NextResponse.json(
-      { message: "Success", ...successData },
-      { status: 200 },
-    );
+    return NextResponse.json({ ...successData }, { status: 200 });
   } catch (e) {
     return NextResponse.json({ message: `Server Error` }, { status: 500 });
   }

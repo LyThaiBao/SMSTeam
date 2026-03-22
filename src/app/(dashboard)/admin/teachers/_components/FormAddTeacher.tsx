@@ -1,35 +1,36 @@
 "use client";
 
-import { getFaculties } from "@/services/faculty";
+import { getDepartments } from "@/services/department";
 import { postTeacher } from "@/services/people";
-import {
-  Faculty,
-  FormTeacherSchemas,
-  FormTeacherType,
-  TeacherDetailSchemas,
-  TeacherDetailType,
-} from "@/types/people";
+import { DepartmentTypeDetail } from "@/types/depart";
+import { FormTeacherSchemas, FormTeacherType } from "@/types/people";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast, Toaster } from "sonner";
 
 interface FormAddTeacherProps {
   onModal: (value: boolean) => void;
 }
 export default function FormAddTeacher({ onModal }: FormAddTeacherProps) {
-  const [faculties, setFaculties] = useState<Faculty[]>([]);
+  const [faculties, setFaculties] = useState<DepartmentTypeDetail[]>([]);
   useEffect(() => {
     (async () => {
-      const faculties: Faculty[] = await getFaculties();
-      console.info("faculties>>> ", faculties);
-      setFaculties(faculties);
+      const data = await getDepartments();
+      const list: DepartmentTypeDetail[] = data.listFaculty;
+      console.info("faculties>>> ", list);
+      setFaculties(list);
     })();
   }, []);
 
   // ----------------RHF----------------
   async function addTeacher(data: FormTeacherType) {
-    postTeacher(data);
-    console.log(">>>Data Teacher ", data);
+    const myPromise = postTeacher(data);
+    toast.promise(myPromise, {
+      loading: "Đang Lưu Giảng Viên",
+      success: "Tạo Thành Công",
+      error: (err) => <b>${err.message}</b>,
+    });
   }
   const {
     register,
@@ -63,13 +64,29 @@ export default function FormAddTeacher({ onModal }: FormAddTeacherProps) {
             </label>
             <div>
               <input
-                {...register("name")}
+                {...register("userName")}
                 type="text"
                 placeholder="Nhập tên"
                 className="bg-gray-200 outline-0 outline-gray-500  focus:outline-2  w-[80%] p-2 rounded-sm self-end"
               />
               <small className="text-red-500 block ml-5">
-                {errors.name?.message}
+                {errors.userName?.message}
+              </small>
+            </div>
+          </div>
+          <div className="flex gap-8">
+            <label htmlFor="" className="text-lg">
+              Mật Khẩu
+            </label>
+            <div>
+              <input
+                {...register("passWord")}
+                type="text"
+                placeholder="Nhập Mật Khẩu"
+                className="bg-gray-200 outline-0 outline-gray-500  focus:outline-2  w-[80%] p-2 rounded-sm self-end"
+              />
+              <small className="text-red-500 block ml-5">
+                {errors.passWord?.message}
               </small>
             </div>
           </div>
@@ -95,19 +112,19 @@ export default function FormAddTeacher({ onModal }: FormAddTeacherProps) {
           <div className="flex gap-3 lg:gap-10 items-center justify-between lg:justify-start">
             <label htmlFor="">Khoa/Trường</label>
             <select
-              {...register("faculty")}
+              {...register("faculty_id")}
               className="bg-gray-200  w-[80%] lg:w-[50%] p-3 rounded-sm outline-0"
             >
               <option className="bg-white hover:bg-gray-300 " value="">
                 ----Chọn Khoa----
               </option>
               {faculties.map((f) => (
-                <option value={f.name} key={f.id}>
+                <option value={f.id} key={f.id}>
                   {f.name}
                 </option>
               ))}
             </select>
-            <small className="text-red-500">{errors.faculty?.message}</small>
+            <small className="text-red-500">{errors.faculty_id?.message}</small>
           </div>
         </section>
         <section>

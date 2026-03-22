@@ -4,6 +4,7 @@ import { TeacherType } from "@/types/people";
 import { usePathname, useRouter } from "next/navigation";
 
 export default function Teacher({ name, faculty, id }: TeacherType) {
+  console.log(">> Username :", name);
   const router = useRouter();
   const currentPath = usePathname();
   console.info("Current Path>> " + currentPath);

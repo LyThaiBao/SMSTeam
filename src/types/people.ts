@@ -7,11 +7,9 @@ const GenderSchemas = z.enum(["Nam", "Nữ"]);
 type Gender = z.infer<typeof GenderSchemas>;
 
 export const FormTeacherSchemas = z.object({
-  name: z.string("Tên phải là chữ!").nonempty("Tên không thể để trống"),
-  faculty: z.object({
-    name: z.string("Ten phai la chu").min(1, "Ten khoa khong duoc trong"),
-    code: z.string("").min(1, "Ma khoa khong duoc trong"),
-  }),
+  userName: z.string("Tên phải là chữ!").nonempty("Tên không thể để trống"),
+  passWord: z.string("").min(8, "Mat khau phai lon hon 8 ki tu"),
+  faculty_id: z.string("").min(1, "Khoa ko the null"),
   phone: z
     .string()
     .regex(
@@ -31,15 +29,15 @@ export const TeacherDetailSchemas = FormTeacherSchemas.extend({
 });
 
 export type TeacherDetailType = z.infer<typeof TeacherDetailSchemas>;
-export type TeacherType = { id: string | number } & Pick<
-  TeacherDetailType,
-  "name" | "faculty"
->;
-
-export type Faculty = {
-  id: string | number;
+export type TeacherType = {
+  faculty: { name: string; code: string };
   name: string;
-  description: string;
-  status: string;
-  createdAt: Timestamp;
-};
+} & Pick<TeacherDetailType, "email" | "gender" | "phone" | "id">;
+
+// export type Faculty = {
+//   id: string | number;
+//   name: string;
+//   description: string;
+//   status: string;
+//   createdAt: Timestamp;
+// };

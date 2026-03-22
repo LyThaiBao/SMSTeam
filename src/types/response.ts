@@ -1,12 +1,13 @@
 import { DepartmentTypeDetail, FormDepartmentType } from "./depart";
-import { TeacherDetailType } from "./people";
+import { TeacherDetailType, TeacherType } from "./people";
 
+//----------------GET--------------------
 export type TeacherList = {
-  message: string;
+  // message: string;
   Success: boolean;
   DATA: {
     quantity: number;
-    listLecturer: TeacherDetailType[];
+    listLecturer: TeacherType[];
   };
 };
 
@@ -18,3 +19,5 @@ export type DepartList = {
     listFaculty: DepartmentTypeDetail[];
   };
 };
+
+//-----------POST----------------
