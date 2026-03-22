@@ -19,7 +19,7 @@ export default async function TeacherDetailPage({
   }
   return (
     <div className="">
-      <DetailTeacher {...teacher.DATA} />
+      <DetailTeacher {...teacher.abc} />
     </div>
   );
 }
