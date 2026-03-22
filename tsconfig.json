@@ -20,8 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    },
-    "typeRoots": ["./node_modules/@types", "./types", "./src/types"]
+    }
+    // XÓA DÒNG TYPEROOTS Ở ĐÂY
   },
   "include": [
     "next-env.d.ts",
@@ -29,7 +29,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    "src/types/**/*.ts" // Thêm dòng này để TS quét kỹ các file type của bạn
   ],
   "exclude": ["node_modules"]
 }
