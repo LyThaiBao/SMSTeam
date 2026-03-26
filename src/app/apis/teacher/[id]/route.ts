@@ -30,10 +30,7 @@ export async function GET(
         { status: response.status },
       );
     }
-    return NextResponse.json(
-      { data: (data as BEGetSuccess).DATA },
-      { status: 200 },
-    );
+    return NextResponse.json({ data: data as BEGetSuccess }, { status: 200 });
   } catch (e) {
     return NextResponse.json({ message: `Server Error` }, { status: 500 });
   }

@@ -70,7 +70,7 @@ export async function getTeacher(id: string | number, token: string) {
   }
   // const teacher: TeacherType = data.data as ;
   console.log(">>>> TT: ", result.data);
-  return result.data;
+  return result.data?.DATA as TeacherType;
 }
 
 export async function postTeacher(info: FormTeacherType) {

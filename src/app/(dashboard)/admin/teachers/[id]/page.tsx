@@ -13,13 +13,15 @@ export default async function TeacherDetailPage({
   // console.log("Detail teachers >>> " + id);
   const cook = await cookies();
   const token = cook.get("accessToken")?.value || "";
-  const teacher = await getTeacher(id, token);
+  const teacher: TeacherType = await getTeacher(id, token);
+  console.log(">>> teacher: ", teacher);
   if (!teacher) {
     return <div>Không tìm thấy thông tin giảng viên!</div>;
   }
+  console.log(">> Data Page : ", teacher);
   return (
     <div className="">
-      <DetailTeacher {...teacher.DATA} />
+      <DetailTeacher {...teacher} />
     </div>
   );
 }

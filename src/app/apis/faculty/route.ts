@@ -1,5 +1,12 @@
+import { getToken } from "@/hooks/getToken";
 import { FormDepartmentType } from "@/types/depart";
+import {
+  BEDeleteResponse,
+  BEPostResponse,
+  BEPostSuccess,
+} from "@/types/faculty/response";
 import { DepartList } from "@/types/response";
+import { BEDeletSuccess, BEError } from "@/types/teacher/response";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -27,42 +34,63 @@ export async function GET() {
   } catch (e) {
     return NextResponse.json({ message: `Server Error` }, { status: 500 });
   }
-  // const faculties: Faculty[] = [
-  //   {
-  //     id: 1,
-  //     name: "CICT",
-  //     description: "information technology",
-  //     createdAt: 9 - 1 - 2025,
-  //     status: "active",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "NN",
-  //     description: "Nong Nghiep",
-  //     createdAt: 9 - 1 - 2025,
-  //     status: "active",
-  //   },
-  // ];
-  // return NextResponse.json(faculties, { status: 200 });
 }
 
 export async function POST(request: NextRequest) {
+  const cook = await cookies();
+  const token = cook.get("accessToken");
   const info: FormDepartmentType = await request.json();
-  const beUrl = process.env.BACKEND_URL || "localhost:8080";
+  const beUrl = process.env.BACKEND_URL || "http://localhost:8080";
   try {
     const response = await fetch(`${beUrl}/faculty`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
+
       body: JSON.stringify(info),
     });
+    const data: BEPostResponse = await response.json();
     if (!response.ok) {
-      return NextResponse.json({ message: `Server Error` }, { status: 500 });
+      const err = data as BEError;
+      return NextResponse.json({ message: err.MS }, { status: 500 });
     }
-    const data = await response.json();
-    return NextResponse.json({ message: "Success", ...data }, { status: 200 });
+    return NextResponse.json(
+      { message: "Success", data: data as BEPostSuccess },
+      { status: 200 },
+    );
   } catch (err) {
     return NextResponse.json({ message: `Server Error` }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  const token = await getToken();
+  const beUrl = process.env.BACKEND_URL || "http://localhost:8080";
+  try {
+    const response = await fetch(`${beUrl}/faculty`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data: BEDeleteResponse = await response.json();
+
+    if (!response.ok) {
+      const err = data as BEError;
+      return NextResponse.json(
+        { massage: err.MS },
+        { status: response.status },
+      );
+    }
+
+    return NextResponse.json(
+      { message: data as BEDeletSuccess },
+      { status: 200 },
+    );
+  } catch (err) {
+    return NextResponse.json({ message: "Server Error" }, { status: 500 });
   }
 }

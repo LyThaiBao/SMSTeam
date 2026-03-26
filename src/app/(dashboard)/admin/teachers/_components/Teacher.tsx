@@ -30,7 +30,7 @@ export default function Teacher({ name, faculty, id }: TeacherType) {
     router.push(`${currentPath}/${id}`);
   }
   return (
-    <li className="bg-[#5fd1ed] p-4 mb-3 flex flex-col gap-3 md:flex-row justify-between items-center rounded-2xl">
+    <li className="bg-[#5fd1ed] p-4 mb-3 flex flex-col gap-3 md:flex-row justify-between items-center rounded-2xl shadow-sm border border-slate-100  hover:bg-slate-500 transition">
       <div className="text-xl font-bold">{name}</div>
       <div className="text-xl font-bold">{faculty.name}</div>
       <div className="flex justify-between items-center w-full md:max-w-[45%]">

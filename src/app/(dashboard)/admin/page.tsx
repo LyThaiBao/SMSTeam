@@ -2,17 +2,27 @@ import { getDepartments } from "@/services/department";
 import MetricsCard, { MetricsCardType } from "./_components/MetricsCard";
 import MetricsCardList from "./_components/MetricsCardList";
 import { cookies } from "next/headers";
-import { string } from "zod";
+import { promise, string } from "zod";
 import { DepartList } from "@/types/response";
+import { get } from "https";
+import { getTeachers } from "@/services/people";
 
 export default async function DashBoard() {
   const cook = await cookies();
   const token = cook.get("accessToken")?.value || "";
   // console.log(">> token ", token);
   // // fetch data here
-  const depart = await getDepartments(token);
+  const departmentPromise = getDepartments(token);
+  const teachersPromise = getTeachers({ token: token });
+  //-------------Lecturer
+
+  const [department, teachers] = await Promise.all([
+    departmentPromise,
+    teachersPromise,
+  ]);
+  const departQuantity = department.quantity;
+  const teacherQuantity = teachers.length;
   // console.log(">> Page DashBoard ", depart);
-  const departQuantity = depart.quantity;
   // //--------------------
 
   const metricsData: MetricsCardType[] = [
@@ -26,7 +36,7 @@ export default async function DashBoard() {
       id: 2,
       imgSource: "/imgs/student.svg",
       title: "Số Lượng Giảng Viên",
-      metrics: 4343,
+      metrics: teacherQuantity,
     },
     {
       id: 3,
