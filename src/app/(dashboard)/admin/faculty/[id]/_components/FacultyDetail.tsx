@@ -9,6 +9,7 @@ export default function FacultyDetail({ faculty }: FacultyProp) {
       <div className="w-full h-[300px] relative rounded-2xl overflow-hidden ">
         {/* fill yeu cau parent phai co relative */}
         <img src={`${faculty.img}`} alt="" className="size-full object-cover" />
+        {/* hoc them ve cai nay */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a1932]/80 via-[#0a1932]/20 to-transparent" />
 
         <div className=" p-2 absolute bottom-5 ">

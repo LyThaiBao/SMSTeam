@@ -2,6 +2,7 @@ import { getToken } from "@/hooks/getToken";
 import { getDepartment } from "@/services/department";
 import Image from "next/image";
 import FacultyDetail from "./_components/FacultyDetail";
+import CardInfo from "./_components/CardInfo";
 
 export default async function FacultyDetailPage(params: {
   params: Promise<{ id: string | number }>;
@@ -16,5 +17,10 @@ export default async function FacultyDetailPage(params: {
   if (!data) {
     return <div> Khong Tai Duoc Trang Vui Long Thu Lai</div>;
   }
-  return <FacultyDetail faculty={data?.DT} />;
+  return (
+    <div>
+      <FacultyDetail faculty={data?.DT} />
+      <CardInfo />
+    </div>
+  );
 }
