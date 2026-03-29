@@ -64,33 +64,3 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: `Server Error` }, { status: 500 });
   }
 }
-
-export async function DELETE(request: NextRequest) {
-  const token = await getToken();
-  const beUrl = process.env.BACKEND_URL || "http://localhost:8080";
-  try {
-    const response = await fetch(`${beUrl}/faculty`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data: BEDeleteResponse = await response.json();
-
-    if (!response.ok) {
-      const err = data as BEError;
-      return NextResponse.json(
-        { massage: err.MS },
-        { status: response.status },
-      );
-    }
-
-    return NextResponse.json(
-      { message: data as BEDeletSuccess },
-      { status: 200 },
-    );
-  } catch (err) {
-    return NextResponse.json({ message: "Server Error" }, { status: 500 });
-  }
-}
