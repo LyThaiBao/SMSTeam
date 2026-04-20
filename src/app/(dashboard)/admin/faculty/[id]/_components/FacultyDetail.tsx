@@ -7,10 +7,10 @@ interface FacultyProp {
 }
 
 export default function FacultyDetail({ faculty }: FacultyProp) {
+  console.log(">>> FACULTY: ",faculty)
   return (
     <div className="w-full">
       <div className="w-full h-[350px] relative rounded-3xl overflow-hidden shadow-lg">
-        {/* Ảnh nền */}
         <img 
           src={faculty.img || "/placeholder-faculty.jpg"} 
           alt={faculty.name} 
@@ -20,7 +20,6 @@ export default function FacultyDetail({ faculty }: FacultyProp) {
         {/* Lớp phủ Gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
 
-        {/* Nội dung thông tin */}
         <div className="absolute bottom-0 left-0 p-8 w-full">
           <h2 className="font-extrabold text-4xl text-white mb-4 tracking-tight">
             {faculty.name}
@@ -44,15 +43,6 @@ export default function FacultyDetail({ faculty }: FacultyProp) {
             </li>
           </ul>
         </div>
-      </div>
-      
-      {/* Nơi bạn có thể thêm mô tả chi tiết phía dưới */}
-      <div className="mt-8 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
-        <h3 className="text-xl font-bold text-slate-800 mb-4">Thông tin chi tiết</h3>
-        <p className="text-slate-600 leading-relaxed">
-          {/* Bạn có thể thêm các trường dữ liệu khác ở đây */}
-        <CardInfo/>
-        </p>
       </div>
     </div>
   );

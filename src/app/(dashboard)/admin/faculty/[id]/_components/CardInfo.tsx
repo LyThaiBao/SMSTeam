@@ -3,6 +3,9 @@ import { Users, UserCog, GraduationCap } from "lucide-react";
 export default function CardInfo() {
   return (
     <section className="bg-white border border-slate-100 p-6 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
+       <div className="mt-8 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+        <h3 className="text-xl font-bold text-slate-800 mb-4">Thông tin chi tiết</h3>
+      </div>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         
         {/* Tổng quan */}

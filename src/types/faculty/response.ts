@@ -1,5 +1,7 @@
 import { DepartmentTypeDetail } from "../depart";
-import type { Response, BEError } from "../teacher/response";
+import { BEError } from "../response/errorResponse";
+import { Response } from "../teacher/response";
+
 
 //-------------GENERIC-------------
 type BEResponse<T> = T | BEError;

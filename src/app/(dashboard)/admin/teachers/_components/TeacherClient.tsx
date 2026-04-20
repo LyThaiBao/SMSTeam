@@ -13,9 +13,6 @@ export default function TeacherClient({ teachers }: TeacherClientType) {
   console.log(">>> teachers: ", teachers);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const goToTeachers = (): void => {
-    console.log("ADD");
-
-    // doi lai thanh show modal
     setOpenModal(true);
   };
   const dataOption: OptionType[] = [
@@ -24,8 +21,6 @@ export default function TeacherClient({ teachers }: TeacherClientType) {
 
   return (
     <div>
-      {/* <OptionList options={dataOption} /> */}
-
       <Option
         label="Thêm Giảng Viên"
         action={() => goToTeachers()}

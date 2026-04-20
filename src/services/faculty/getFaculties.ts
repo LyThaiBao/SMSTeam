@@ -21,8 +21,4 @@ export async function getDepartments(token?: string) {
   catch(err){
     throw err;
   }
-
-  const data: DepartList = await response.json();
-  console.log(">> Data ", data);
-  return data.DT;
 }

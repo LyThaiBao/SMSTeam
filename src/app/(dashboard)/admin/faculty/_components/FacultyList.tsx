@@ -23,7 +23,7 @@ export default function FacultyList({ faculties }: FacultyListType) {
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
         {faculties.map((f) => (
-          <Faculty faculty={f} />
+          <Faculty key={f.id} faculty={f} />
         ))}
       </div>
     </div>
