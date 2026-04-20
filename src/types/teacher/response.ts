@@ -1,37 +1,25 @@
-import { keyof } from "zod";
-import { TeacherDetailType, TeacherType } from "../people";
+import { TeacherDetailType } from "@/schemas/teacher";
+import { BEError } from "../response/errorResponse";
+
 
 //-------------BE POST---------------
-export interface BESuccess {
+export interface BEPostSuccess {
   Success: boolean;
   lecturer: Omit<TeacherDetailType, "passWord" | "faculty_id">;
 }
 
-export interface BEError {
-  Success: boolean;
-  MS: string;
-}
 
-export type BEResponse = BESuccess | BEError;
+export type BEResponse = BEPostSuccess | BEError;
 
-//-----------BE GET--------------------
-export interface BEGetSuccess {
-  Success: boolean;
-  DATA: TeacherType;
-}
 
-export type BEGetResponse = BEGetSuccess | BEError;
-// --------------BE DELETE----------------
 
 //---------SERVICE POST---------------
 export type Response<T> = {
   message: string;
   data?: T;
 };
-// -------------DELETE---------------
-export interface BEDeletSuccess {}
+
 
 //------------------------RESPONSE-------------------
-export type PostResponse = Response<BESuccess>;
-export type GetSigleResponse = Response<BEGetSuccess>;
+export type PostResponse = Response<BEPostSuccess>;
 export type DeletResponse = Response<BEError>;

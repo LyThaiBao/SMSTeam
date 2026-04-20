@@ -1,28 +1,29 @@
+import { LucideIcon } from "lucide-react";
 import Image from "next/image";
 
 export interface MetricsCardType {
   id: string | number;
-  imgSource: string;
+  icon:LucideIcon;
   title: string;
   metrics: number;
 }
+
 export default function MetricsCard({
-  imgSource,
+  icon:Icon,
   title,
   metrics,
 }: MetricsCardType) {
   return (
-    <section className="flex gap-3  border border-[#D1DAEA] hover:border-blue-500 p-20  md:p-10 rounded-2xl">
-      <Image
-        src={`${imgSource}`}
-        height={50}
-        width={50}
-        alt="demo_picture"
-      ></Image>
+    <section className="flex items-center gap-5 border border-slate-200 bg-white hover:border-blue-500 hover:shadow-lg transition-all duration-300 p-6 rounded-3xl">
+      {/* Icon Wrapper */}
+      <div className="flex-shrink-0 p-3 bg-slate-50 rounded-2xl">
+       <Icon className="" strokeWidth={2.5} size={32}/>
+      </div>
 
-      <div className="text-[#333] font-bold">
-        <p>{title}</p>
-        <h4 className="text-2xl">{metrics}</h4>
+      {/* Content */}
+      <div className="flex flex-col">
+        <p className="text-sm text-slate-500 font-medium">{title}</p>
+        <h4 className="text-2xl font-bold text-slate-800">{metrics}</h4>
       </div>
     </section>
   );

@@ -1,6 +1,8 @@
 export const dynamic = "force-dynamic";
-import { TeacherList } from "@/types/response";
-import { BEError, BEResponse, BESuccess } from "@/types/teacher/response";
+
+import { BEError } from "@/types/response/errorResponse";
+import {  BEResponse, BEPostSuccess } from "@/types/teacher/response";
+import { TeacherList } from "@/types/teacher/teacherList";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -18,13 +20,15 @@ export async function GET(request: NextRequest) {
         Authorization: `Bearer ${token}`,
       },
     });
+    const result:TeacherList | BEError = await response.json();
     if (!response.ok) {
-      return NextResponse.json({ message: "Server Error" }, { status: 500 });
+      const error = result as BEError;
+      return NextResponse.json({ message: error.MS,data:null,isSuccess:false }, { status: response.status });
     }
-    const data: TeacherList = await response.json();
-    return NextResponse.json({ ...data }, { status: 200 });
+    const success = result as TeacherList;
+    return NextResponse.json({ message: "Get all success",data:success.DATA.listLecturer,isSuccess:true }, { status: 200 });
   } catch (e) {
-    return NextResponse.json({ message: "Server Error" }, { status: 500 });
+     return NextResponse.json({ message: "Server Error",data:null,isSuccess:false }, { status: 500 });
   }
 }
 
@@ -33,7 +37,6 @@ export async function POST(request: NextRequest) {
   const token = cook.get("accessToken")?.value;
   console.log(">>Token ", token);
   const info = await request.json();
-  // console.log(">>> INFO ", info);
   const beUrl = process.env.BACKEND_URL || "localhost:8080";
   try {
     const response = await fetch(`${beUrl}/lecturer`, {
@@ -44,17 +47,17 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify(info),
     });
-    console.log("RESPONSE >> ", response);
+
     const data: BEResponse = await response.json();
     if (!response.ok) {
       const error = data as BEError;
       return NextResponse.json(
-        { message: error.MS },
+        { message: error.MS ,data:null,isSuccess:false},
         { status: response.status },
       );
     }
     return NextResponse.json(
-      { message: "Success", data: (data as BESuccess).lecturer },
+      { message: "Success", data: (data as BEPostSuccess).lecturer },
       { status: 200 },
     );
   } catch (e) {

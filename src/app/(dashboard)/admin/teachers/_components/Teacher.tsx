@@ -1,6 +1,6 @@
 "use client";
-import { deleteTeacher } from "@/services/people";
-import { TeacherType } from "@/types/people";
+import { TeacherType } from "@/schemas/teacher";
+import { deleteTeacher } from "@/services/teacher/deleteTeacher";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 

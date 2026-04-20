@@ -15,7 +15,7 @@ export default function DashBoardLayout({ children }: { children: ReactNode }) {
       </aside>
 
       <div className="w-full md:ml-[40%] lg:ml-[20%]  flex-1">
-        <header className="flex bg-gray-300 px-4 py-4  items-center justify-between md:justify-end gap-10">
+        <header className="flex bg-gray-200 px-4 py-4  items-center justify-between md:justify-end gap-10">
           <button
             onClick={() => setClose(false)}
             className=" md:hidden text-2xl cursor-pointer text-blue-400 hover:text-blue-600"

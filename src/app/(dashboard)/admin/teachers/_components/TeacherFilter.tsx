@@ -1,9 +1,9 @@
 "use client";
 
-import { getDepartments } from "@/services/department";
+import { getDepartments } from "@/services/faculty/getFaculties";
 import { DepartmentTypeDetail } from "@/types/depart";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function TeacherFilter() {
   // Khởi tạo mảng rỗng để render ban đầu không bị lỗi map
@@ -15,8 +15,8 @@ export default function TeacherFilter() {
     (async () => {
       try {
         const data = await getDepartments();
-        console.log(">> Depart ", data.listFaculty);
-        const depart = data.listFaculty;
+        console.log(">> Depart ", data);
+        const depart = data;
         setDeparts(depart); // Đổi tên biến tránh trùng với state
       } catch (error) {
         console.error("Lỗi khi lấy danh sách khoa:", error);

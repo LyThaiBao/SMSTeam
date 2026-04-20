@@ -2,9 +2,9 @@
 import Option, { OptionType } from "@/app/(dashboard)/_components/Option";
 import TeacherFilter from "./TeacherFilter";
 import TeacherList from "./TeacherList";
-import { TeacherType } from "@/types/people";
 import FormAddTeacher from "./FormAddTeacher";
 import { useState } from "react";
+import { TeacherType } from "@/schemas/teacher";
 
 interface TeacherClientType {
   teachers: TeacherType[];

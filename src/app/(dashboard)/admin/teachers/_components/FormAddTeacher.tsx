@@ -1,53 +1,30 @@
 "use client";
-
-import { getDepartments } from "@/services/department";
-import { postTeacher } from "@/services/people";
 import { DepartmentTypeDetail } from "@/types/depart";
-import { FormTeacherSchemas, FormTeacherType } from "@/types/people";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
+import { X } from "lucide-react"; // Icon đóng modal
+import { FormTeacherSchemas, FormTeacherType } from "@/schemas/teacher";
+import { postTeacher } from "@/services/teacher/postTeacher";
+import { getDepartments } from "@/services/faculty/getFaculties";
 
 interface FormAddTeacherProps {
   onModal: (value: boolean) => void;
 }
+
 export default function FormAddTeacher({ onModal }: FormAddTeacherProps) {
   const router = useRouter();
   const [faculties, setFaculties] = useState<DepartmentTypeDetail[]>([]);
+
   useEffect(() => {
     (async () => {
       const data = await getDepartments();
-      const list: DepartmentTypeDetail[] = data.listFaculty;
-      console.info("faculties>>> ", list);
-      setFaculties(list);
+      setFaculties(data || []);
     })();
   }, []);
 
-  // ----------------RHF----------------
-  async function addTeacher(data: FormTeacherType) {
-    const myPromise = postTeacher(data); // GỌI 1 LẦN (Máy bắt đầu làm việc)
-    toast.promise(myPromise, {
-      // Đưa cái "phiếu hẹn" cho Toast theo dõi
-      loading: "Đang Lưu Giảng Viên",
-      success: "Tạo Thành Công",
-      error: (err) => <b>${err.message}</b>,
-    });
-
-    try {
-      // 3. ĐỢI cho đến khi Promise hoàn thành thực sự
-      await myPromise; // Đợi cái "phiếu hẹn" đó hoàn thành
-
-      // 4. CHỈ KHI THÀNH CÔNG MỚI CHẠY TIẾP
-      onModal(false); // Đóng modal
-      router.refresh(); // Refresh dữ liệu
-    } catch (err) {
-      // Nếu lỗi, toast.promise đã hiện thông báo lỗi rồi
-      // Ở đây ta không đóng modal để user xem lại form
-      console.error("Lỗi addTeacher:", err);
-    }
-  }
   const {
     register,
     formState: { errors },
@@ -56,132 +33,96 @@ export default function FormAddTeacher({ onModal }: FormAddTeacherProps) {
     resolver: zodResolver(FormTeacherSchemas),
   });
 
+  async function addTeacher(data: FormTeacherType) {
+    const myPromise = postTeacher(data);
+    toast.promise(myPromise, {
+      loading: "Đang lưu giảng viên...",
+      success: "Thêm thành công!",
+      error: (err)=> {
+        return err.message
+      },
+    });
+
+    try {
+      await myPromise;
+      onModal(false);
+      router.refresh();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  // Helper để style input cho sạch
+  const inputStyle = "w-full p-3 rounded-xl text-black border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-slate-50";
+
   return (
     <form
       onSubmit={handleSubmit(addTeacher)}
-      className=" z-10 absolute bg-white min-w-[90%] left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]  min-h-[60%] border-2 rounded-2xl overflow-hidden text-black"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
     >
-      <header className="flex justify-between items-center py-3 mb-3 bg-gray-200 p-4">
-        <h2 className="text-2xl">Thêm Giảng Viên</h2>
-        <button
-          type="button"
-          className="cursor-pointer"
-          onClick={() => onModal(false)}
-        >
-          X
-        </button>
-      </header>
-      <div className="p-4 flex gap-5 flex-col ">
-        <section className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between ">
-          <h3 className="text-xl mb-2 lg:m-0">Thông Tin Cơ Bản</h3>
-          <div className="flex gap-8">
-            <label htmlFor="" className="text-lg">
-              Tên
-            </label>
-            <div>
-              <input
-                {...register("userName")}
-                type="text"
-                placeholder="Nhập tên"
-                className="bg-gray-200 outline-0 outline-gray-500  focus:outline-2  w-[80%] p-2 rounded-sm self-end"
-              />
-              <small className="text-red-500 block ml-5">
-                {errors.userName?.message}
-              </small>
+      <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+        <header className="flex justify-between items-center p-6 border-b border-slate-100">
+          <h2 className="text-xl font-bold text-slate-800">Thêm Giảng Viên</h2>
+          <button type="button" onClick={() => onModal(false)} className="p-1 hover:bg-slate-100 rounded-full transition-all">
+            <X size={20} className="text-red-500 cursor-pointer" />
+          </button>
+        </header>
+
+        <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+          {/* Thông tin cơ bản */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <label className="text-sm font-semibold text-slate-600">Tên giảng viên</label>
+              <input {...register("userName")} className={inputStyle} placeholder="Nhập tên" />
+              {errors.userName && <p className="text-xs text-red-500">{errors.userName.message}</p>}
             </div>
-          </div>
-          <div className="flex gap-8">
-            <label htmlFor="" className="text-lg">
-              Mật Khẩu
-            </label>
-            <div>
-              <input
-                {...register("passWord")}
-                type="text"
-                placeholder="Nhập Mật Khẩu"
-                className="bg-gray-200 outline-0 outline-gray-500  focus:outline-2  w-[80%] p-2 rounded-sm self-end"
-              />
-              <small className="text-red-500 block ml-5">
-                {errors.passWord?.message}
-              </small>
+            <div className="space-y-1">
+              <label className="text-sm font-semibold text-slate-600">Mật khẩu</label>
+              <input {...register("passWord")} className={inputStyle} type="password" placeholder="••••••••" />
+              {errors.passWord && <p className="text-xs text-red-500">{errors.passWord.message}</p>}
+            </div>
+            <div className="space-y-1 md:col-span-2">
+              <label className="text-sm font-semibold text-slate-600">Giới tính</label>
+              <select {...register("gender")} className={inputStyle}>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+              </select>
             </div>
           </div>
 
-          <div className="flex gap-3 items-center justify-between min-w-[30%]">
-            <label htmlFor="">Giới Tính</label>
-            <select
-              {...register("gender")}
-              className="bg-gray-200  w-[80%] lg:w-[70%] p-3 rounded-sm outline-0"
-            >
-              <option className="bg-white hover:bg-gray-300 " value="Nam">
-                Nam
-              </option>
-              <option className="bg-white hover:bg-gray-300" value="Nữ">
-                Nữ
-              </option>
-            </select>
-            <small>{errors.gender?.message}</small>
-          </div>
-        </section>
-        <section>
-          <h3 className="text-xl mt-4 mb-3">Thông Tin Nghiệp Vụ</h3>
-          <div className="flex gap-3 lg:gap-10 items-center justify-between lg:justify-start">
-            <label htmlFor="">Khoa/Trường</label>
-            <select
-              {...register("faculty_id")}
-              className="bg-gray-200  w-[80%] lg:w-[50%] p-3 rounded-sm outline-0"
-            >
-              <option className="bg-white hover:bg-gray-300 " value="">
-                ----Chọn Khoa----
-              </option>
-              {faculties.map((f) => (
-                <option value={f.id} key={f.id}>
-                  {f.name}
-                </option>
-              ))}
-            </select>
-            <small className="text-red-500">{errors.faculty_id?.message}</small>
-          </div>
-        </section>
-        <section>
-          <h3 className="text-xl mt-4 mb-3">Thông Tin Liên Hệ</h3>
-          <div className="flex gap-3 lg:gap-10 items-center justify-between lg:justify-start ">
-            <label htmlFor="">Điện Thoại</label>
-            <input
-              {...register("phone")}
-              type="text"
-              placeholder="Nhập số điện thoại"
-              className="bg-gray-200 outline-0 outline-gray-500 focus:outline-2 w-[75%] lg:w-[50%] p-2 rounded-sm "
-            />
+          <div className="border-t pt-6 space-y-4">
+            <div className="space-y-1">
+              <label className="text-sm font-semibold text-slate-600">Khoa / Trường</label>
+              <select {...register("faculty_id")} className={inputStyle}>
+                <option value="">---- Chọn khoa ----</option>
+                {faculties.map((f) => <option value={f.id} key={f.id}>{f.name}</option>)}
+              </select>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="text-sm font-semibold text-slate-600">Điện thoại</label>
+                <input {...register("phone")} className={inputStyle} placeholder="090xxxxxxx" />
+              <small className="text-red-500">{errors.phone?.message}</small>
+              </div>
+              <div className="space-y-1">
+                <label className="text-sm font-semibold text-slate-600">Email</label>
+                <input {...register("email")} className={inputStyle} placeholder="email@example.com" />
+              <small className="text-red-500">{errors.email?.message}</small>
 
-            <small className="text-red-500">{errors.phone?.message}</small>
-
-            <label htmlFor="">Email</label>
-            <input
-              {...register("email")}
-              type="text"
-              placeholder="Nhập số điện thoại"
-              className="bg-gray-200 outline-0 outline-gray-500 focus:outline-2 w-[75%] lg:w-[50%] p-2 rounded-sm "
-            />
-
-            <small className="text-red-500">{errors.email?.message}</small>
+              </div>
+            </div>
           </div>
-        </section>
-        <div className=" flex justify-between items-center mt-4">
-          <button
-            type="button"
-            onClick={() => onModal(false)}
-            className="px-7 py-3 bg-red-500 rounded-md cursor-pointer active:bg-red-600"
-          >
+        </div>
+
+        <footer className="p-6 border-t border-slate-100 flex justify-end gap-3">
+          <button type="button" onClick={() => onModal(false)} className="px-6 py-2.5 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 transition-all">
             Hủy
           </button>
-          <button
-            type="submit"
-            className="px-3 py-3 bg-blue-500 rounded-md cursor-pointer active:bg-blue-600"
-          >
-            Lưu Giảng Viên{" "}
+          <button type="submit" className="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all active:scale-95">
+            Lưu giảng viên
           </button>
-        </div>
+        </footer>
       </div>
     </form>
   );

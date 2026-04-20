@@ -1,19 +1,17 @@
 import { getToken } from "@/hooks/getToken";
 import { FormDepartmentType } from "@/types/depart";
+import { GetFacultiesResponse } from "@/types/faculty/getFacultysResponse";
 import {
-  BEDeleteResponse,
   BEPostResponse,
   BEPostSuccess,
 } from "@/types/faculty/response";
-import { DepartList } from "@/types/response";
-import { BEDeletSuccess, BEError } from "@/types/teacher/response";
+import { BEError } from "@/types/response/errorResponse";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
   const cook = await cookies();
   const token = cook.get("accessToken")?.value;
-  console.log(">>> TOKEN IN Faculty ", token);
   const beUrl = process.env.BACKEND_URL || "localhost:8080";
   try {
     const response = await fetch(`${beUrl}/faculty`, {
@@ -23,16 +21,16 @@ export async function GET() {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(">> RESPONSE ", response);
+    const result:GetFacultiesResponse | BEError = await response.json();
+    console.log("RESPON: ",result)
     if (!response.ok) {
-      return NextResponse.json({ message: `Server Error` }, { status: 500 });
+      const err = result as BEError;
+      return NextResponse.json({ message: err.MS, data:null,isSuccess:false }, { status: response.status });
     }
-    const successData: DepartList = await response.json();
-    console.log(">>> LOG RESPONSE ", successData);
-    // console.log(">>> Route Faculty ", successData);
-    return NextResponse.json({ ...successData }, { status: 200 });
+    const success = result as GetFacultiesResponse;
+   return NextResponse.json({ message:"Get faculties Success" , data:success.DT.listFaculty,isSuccess:true }, { status: 200 });
   } catch (e) {
-    return NextResponse.json({ message: `Server Error` }, { status: 500 });
+      return NextResponse.json({ message: "Server Error", data:null,isSuccess:false }, { status:500});
   }
 }
 

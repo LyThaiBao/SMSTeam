@@ -20,7 +20,7 @@ export default async function FacultyDetailPage(params: {
   return (
     <div>
       <FacultyDetail faculty={data?.DT} />
-      <CardInfo />
+      {/* <CardInfo /> */}
     </div>
   );
 }

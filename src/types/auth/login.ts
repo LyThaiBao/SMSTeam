@@ -19,3 +19,8 @@ export type LoginResponse = {
     role: string;
   };
 };
+
+export type LoginFail = {
+  ES:string;
+  MessageError:string;
+}

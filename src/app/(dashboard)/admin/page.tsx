@@ -1,11 +1,12 @@
-import { getDepartments } from "@/services/department";
 import MetricsCard, { MetricsCardType } from "./_components/MetricsCard";
 import MetricsCardList from "./_components/MetricsCardList";
 import { cookies } from "next/headers";
 import { promise, string } from "zod";
 import { DepartList } from "@/types/response";
 import { get } from "https";
-import { getTeachers } from "@/services/people";
+import { BookOpen, Building2, GraduationCap, Library, Users } from "lucide-react";
+import { getTeachers } from "@/services/teacher/getTeachers";
+import { getDepartments } from "@/services/faculty/getFaculties";
 
 export default async function DashBoard() {
   const cook = await cookies();
@@ -16,43 +17,43 @@ export default async function DashBoard() {
   const teachersPromise = getTeachers({ token: token });
   //-------------Lecturer
 
-  const [department, teachers] = await Promise.all([
+  const [ department,teachers] = await Promise.all([
     departmentPromise,
     teachersPromise,
   ]);
-  const departQuantity = department.quantity;
+  const departQuantity = department.length;
   const teacherQuantity = teachers.length;
-  // console.log(">> Page DashBoard ", depart);
+
   // //--------------------
 
-  const metricsData: MetricsCardType[] = [
+ const metricsData: MetricsCardType[] = [
     {
       id: 1,
-      imgSource: "/imgs/student.svg",
+      icon: GraduationCap,
       title: "Số Lượng Học Viên",
       metrics: 4343,
     },
     {
       id: 2,
-      imgSource: "/imgs/student.svg",
+      icon: Users,
       title: "Số Lượng Giảng Viên",
       metrics: teacherQuantity,
     },
     {
       id: 3,
-      imgSource: "/imgs/student.svg",
+      icon: BookOpen,
       title: "Số Lượng Ngành",
       metrics: 4343,
     },
     {
       id: 4,
-      imgSource: "/imgs/student.svg",
-      title: "Số Lượng Học ",
+      icon: Library,
+      title: "Số Lượng Học Phần",
       metrics: 4343,
     },
     {
       id: 5,
-      imgSource: "/imgs/student.svg",
+      icon: Building2,
       title: "Số Lượng Khoa",
       metrics: departQuantity,
     },
