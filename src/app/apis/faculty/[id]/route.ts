@@ -4,7 +4,8 @@ import {
   BEGetSingleResponse,
   BEGetSingleSuccess,
 } from "@/types/faculty/response";
-import { BEDeletSuccess, BEError } from "@/types/teacher/response";
+import { BEError } from "@/types/response/errorResponse";
+
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -66,7 +67,7 @@ export async function DELETE(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { message: data as BEDeletSuccess },
+      { message: data as BEDeleteResponse },
       { status: 200 },
     );
   } catch (err) {
