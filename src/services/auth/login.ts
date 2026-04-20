@@ -1,5 +1,5 @@
 import { LoginResponse, LoginType } from "@/types/auth/login";
-import { RouteResponse } from "@/types/response";
+import { RouteResponse } from "@/types/response/routeResponse";
 
 export async function login({ email, passWord }: LoginType) {
   const baseUrl = "apis/auth";
