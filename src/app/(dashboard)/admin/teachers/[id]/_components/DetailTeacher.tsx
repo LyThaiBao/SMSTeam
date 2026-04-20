@@ -1,11 +1,9 @@
 "use client";
 
-import { getTeacher } from "@/services/people";
-import { TeacherDetailType, TeacherType } from "@/types/people";
-import { error } from "console";
+
+
+import { TeacherType } from "@/schemas/teacher";
 import Image from "next/image";
-import { useParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
 
 // contt
 export default function DetailTeacher({
